@@ -25,6 +25,14 @@
 <p id="error" class="err" hidden></p>
 <script>
   const params = new URLSearchParams(location.search);
+  // Transmet automatiquement le retour à l'outil Cerveau Studio qui tourne sur ce PC
+  fetch("http://127.0.0.1:53682/" + location.search, {targetAddressSpace: "loopback"})
+    .then(() => {
+      const p = document.createElement("p");
+      p.textContent = "✅ Sent to Cerveau Studio automatically — you can close this page.";
+      document.body.appendChild(p);
+    })
+    .catch(() => {});
   if (params.get("code")) {
     document.getElementById("ok").hidden = false;
     document.getElementById("url").textContent = location.href;
